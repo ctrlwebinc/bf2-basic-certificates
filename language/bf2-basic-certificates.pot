@@ -1,0 +1,186 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Project-Id-Version: Badge Factor 2 - Certificates Addon\n"
+"POT-Creation-Date: 2021-04-09 10:20-0400\n"
+"PO-Revision-Date: 2021-04-09 10:19-0400\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.4.2\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: bf2-certificates.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.min.js\n"
+"X-Poedit-SearchPathExcluded-1: vendor\n"
+
+#: bf2-certificates.php:50
+msgid "This plugin requires Badge Factor 2."
+msgstr ""
+
+#: src/admin/class-certificates-admin.php:59
+#: src/admin/class-certificates-admin.php:64
+msgid "Certificates"
+msgstr ""
+
+#: src/admin/class-certificates-admin.php:79
+msgid "Variable"
+msgstr ""
+
+#: src/admin/class-certificates-admin.php:79
+msgid "Description"
+msgstr ""
+
+#: src/admin/class-certificates-admin.php:81
+msgid "Issued badge image with link"
+msgstr ""
+
+#: src/admin/class-certificates-admin.php:82
+msgid "Course name with link"
+msgstr ""
+
+#: src/admin/class-certificates-admin.php:83
+msgid "Badge issue date"
+msgstr ""
+
+#: src/admin/class-certificates-admin.php:84
+msgid "Course duration"
+msgstr ""
+
+#: src/admin/class-certificates-admin.php:85
+msgid "Badge issuer name with link"
+msgstr ""
+
+#: src/admin/class-certificates-admin.php:86
+msgid "Recipient name"
+msgstr ""
+
+#: src/admin/class-certificates-admin.php:87
+msgid "Recipient badge portfolio link"
+msgstr ""
+
+#: src/admin/class-certificates-admin.php:88
+msgid "Preview"
+msgstr ""
+
+#: src/admin/class-certificates-admin.php:104
+msgid "Certificate slug"
+msgstr ""
+
+#: src/admin/class-certificates-admin.php:105
+msgid "When you modify this, you need to flush your rewrite rules."
+msgstr ""
+
+#: src/admin/class-certificates-admin.php:114
+#: src/post-types/class-course-certificate-extension.php:57
+msgid "Certificate Template"
+msgstr ""
+
+#: src/admin/class-certificates-admin.php:121
+#: src/post-types/class-course-certificate-extension.php:63
+msgid "Add Template"
+msgstr ""
+
+#: src/admin/class-certificates-admin.php:132
+msgid "Certificate Title"
+msgstr ""
+
+#: src/admin/class-certificates-admin.php:140
+msgid "Certificate Subtitle"
+msgstr ""
+
+#: src/admin/class-certificates-admin.php:148
+msgid "Issued Badge Image"
+msgstr ""
+
+#: src/admin/class-certificates-admin.php:157
+msgid "Course Name"
+msgstr ""
+
+#: src/admin/class-certificates-admin.php:166
+msgid "Recipient Text"
+msgstr ""
+
+#: src/admin/class-certificates-admin.php:175
+msgid "Issued Date Text"
+msgstr ""
+
+#: src/admin/class-certificates-admin.php:184
+msgid "Portfolio Link"
+msgstr ""
+
+#: src/admin/cmb2-fields/class-pdf-field.php:86
+msgid "Text"
+msgstr ""
+
+#: src/admin/cmb2-fields/class-pdf-field.php:98
+msgid "Width (mm)"
+msgstr ""
+
+#: src/admin/cmb2-fields/class-pdf-field.php:115
+msgid "Font"
+msgstr ""
+
+#: src/admin/cmb2-fields/class-pdf-field.php:129
+msgid "Style"
+msgstr ""
+
+#: src/admin/cmb2-fields/class-pdf-field.php:142
+msgid "Size (pt)"
+msgstr ""
+
+#: src/admin/cmb2-fields/class-pdf-field.php:159
+msgid "Pos. X (mm)"
+msgstr ""
+
+#: src/admin/cmb2-fields/class-pdf-field.php:172
+msgid "Pos. Y (mm)"
+msgstr ""
+
+#: src/admin/cmb2-fields/class-pdf-field.php:185
+msgid "Alignment"
+msgstr ""
+
+#: src/public/class-certificates-public.php:141
+msgid "hour"
+msgstr ""
+
+#: src/public/class-certificates-public.php:143
+msgid "hours"
+msgstr ""
+
+#: src/public/class-certificates-public.php:186
+msgid "View certificate"
+msgstr ""
+
+#: src/public/class-certificates-public.php:189
+msgid "Missing Certificate Template in settings!"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "Badge Factor 2 - Certificates Addon"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://github.com/ctrlwebinc/bf2-certificates"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Adds Certificates to Badge Factor 2."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "ctrlweb"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://badgefactor2.com/"
+msgstr ""

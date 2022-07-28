@@ -1,0 +1,24 @@
+{
+  "name": "ctrlwebinc/bf2-certificates",
+  "description": "",
+  "type": "wordpress-plugin",
+  "keywords": [
+    "badge-factor-2",
+    "badges",
+    "badgr",
+    "wordpress"
+  ],
+  "homepage": "https://github.com/DigitalPygmalion/badge-factor-certificate",
+  "license": "MIT",
+  "support": {
+    "issues": "https://github.com/DigitalPygmalion/badge-factor-certificate/issues",
+    "wiki": "https://github.com/DigitalPygmalion/badge-factor-certificate/wiki"
+  },
+  "require": {
+    "composer/installers": "~1.0",
+    "php": ">=7.2",
+    "setasign/fpdf": "1.8.*",
+    "setasign/fpdi": "^2.0",
+    "tecnickcom/tcpdf": "^6.3.5"
+  }
+}
