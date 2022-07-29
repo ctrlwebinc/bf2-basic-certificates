@@ -121,32 +121,10 @@ class Basic_Certificates_Public {
 					} else {
 						$text = $field_settings['text'];
 
-						// $course$
-						// if ( $course && strpos( $text, '$course$' ) !== false ) {
-						// 	$text = str_replace( '$course$', $course->post_title, $text );
-						// } else {
-						// 	// If no course associated to badge, use badge name instead.
-						// 	$text = str_replace( '$course$', $badge->name, $text );
-						// }
-
 						// $date$
 						if ( strpos( $text, '$date$' ) !== false ) {
 							$text = str_replace( '$date$', date( 'Y-m-d', strtotime( $assertion->issuedOn ) ), $text );
 						}
-
-						// $hours$
-						// if ( strpos( $text, '$hours$' ) !== false ) {
-						// 	$hours = get_post_meta( $course->ID, 'course_duration', true );
-						// 	if ( false === $hours ) {
-						// 		$hours = 'N/A';
-						// 	}
-						// 	if ( '1' === $hours ) {
-						// 		$hours .= sprintf( ' %s', __( 'hour', $plugin_data['TextDomain'] ) );
-						// 	} else {
-						// 		$hours .= sprintf( ' %s', __( 'hours', $plugin_data['TextDomain'] ) );
-						// 	}
-						// 	$text = str_replace( '$hours$', $hours, $text );
-						// }
 
 						// $issuer$
 						if ( strpos( $text, '$issuer$' ) !== false ) {

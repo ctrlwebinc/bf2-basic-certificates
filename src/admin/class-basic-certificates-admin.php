@@ -62,7 +62,7 @@ class Basic_Certificates_Admin {
 			'option_key'   => 'bf2_basic_certificates_settings',
 			'capability'   => 'manage_badgr',
 			'position' => 21,
-			'icon_url' => BF2_BASIC_CERTIFICATES_BASEURL . ( 'assets/images/diploma_menu_icon.png' ),
+			'icon_url' => BF2_BASIC_CERTIFICATES_BASEURL . ( 'assets/images/certificate_menu_icon.png' ),
 		);
 
 		$plugins2 = new_cmb2_box( $args );
@@ -74,9 +74,7 @@ class Basic_Certificates_Admin {
 		$legend .= sprintf( '<thead><tr><th style="padding: 5px 0">%s</th><th style="padding: 5px 0">%s</th></tr></thead>', __( 'Variable', $plugin_data['TextDomain'] ), __( 'Description', $plugin_data['TextDomain'] ) );
 		$legend .= '<tbody>';
 		$legend .= sprintf( '<tr><td style="padding:0"><strong>$badge$</strong></td><td style="padding:0">%s</td></tr>', __( 'Issued badge image with link', $plugin_data['TextDomain'] ) );
-		$legend .= sprintf( '<tr><td style="padding:0"><strong>$course$</strong></td><td style="padding:0">%s</td></tr>', __( 'Course name with link', $plugin_data['TextDomain'] ) );
 		$legend .= sprintf( '<tr><td style="padding:0"><strong>$date$</strong></td><td style="padding:0">%s</td></tr>', __( 'Badge issue date', $plugin_data['TextDomain'] ) );
-		$legend .= sprintf( '<tr><td style="padding:0"><strong>$hours$</strong></td><td style="padding:0">%s</td></tr>', __( 'Course duration', $plugin_data['TextDomain'] ) );
 		$legend .= sprintf( '<tr><td style="padding:0"><strong>$issuer$</strong></td><td style="padding:0">%s</td></tr>', __( 'Badge issuer name with link', $plugin_data['TextDomain'] ) );
 		$legend .= sprintf( '<tr><td style="padding:0"><strong>$name$</strong></td><td style="padding:0">%s</td></tr>', __( 'Recipient name', $plugin_data['TextDomain'] ) );
 		$legend .= sprintf( '<tr><td style="padding:0"><strong>$portfolio$</strong></td><td style="padding:0">%s</td></tr>', __( 'Recipient badge portfolio link', $plugin_data['TextDomain'] ) );
@@ -144,15 +142,6 @@ class Basic_Certificates_Admin {
 				'id'      => 'bf2_basic_certificate_badge',
 				'type'    => 'basic_pdf_field',
 				'default' => '$badge$',
-			)
-		);
-
-		$plugins2->add_field(
-			array(
-				'name'    => __( 'Course Name', $plugin_data['TextDomain'] ),
-				'id'      => 'bf2_basic_certificate_course',
-				'type'    => 'basic_pdf_field',
-				'default' => '$course$',
 			)
 		);
 
