@@ -24,7 +24,7 @@
 
 namespace BadgeFactor2;
 
-use BadgeFactor2\Admin\CMB2_Fields\PDF_Field;
+use BadgeFactor2\Admin\CMB2_Fields\Basic_PDF_Field;
 use BadgeFactor2\Helpers\Constant;
 
 class BF2_Basic_Certificates {
@@ -52,5 +52,54 @@ class BF2_Basic_Certificates {
 		}
 
 		return self::$_instance;
+	}
+
+    /**
+	 * BadgeFactor2 Constructor.
+	 */
+	public function __construct() {
+		$this->define_constants();
+		$this->includes();
+		$this->init_hooks();
+	}
+
+	/**
+	 * Badge Factor 2 Init Hooks.
+	 *
+	 * @return void
+	 */
+	public static function init_hooks() {
+		Basic_Certificates_Public::init_hooks();
+
+		if ( is_admin() || ( defined( 'WP_CLI' ) && WP_CLI ) ) {
+			Basic_Certificates_Admin::init_hooks();
+			Basic_PDF_Field::init_hooks();
+		}
+	}
+
+	/**
+	 * Define BadgeFactor2 Constants.
+	 *
+	 * @return void
+	 */
+	private function define_constants() {
+		Constant::define( 'BF2_BASIC_CERTIFICATES_DATA', get_plugin_data( BF2_BASIC_CERTIFICATES_FILE ) );
+	}
+
+	/**
+	 * Badge Factor 2 Includes.
+	 *
+	 * @return void
+	 */
+	public function includes() {
+		require_once plugin_dir_path( __FILE__ ) . '../vendor/autoload.php';
+		require_once plugin_dir_path( __FILE__ ) . 'controllers/class-basic-certificate-controller.php';
+		require_once plugin_dir_path( __FILE__ ) . 'public/class-basic-certificates-public.php';
+		
+		// Admin / CLI classes.
+		if ( is_admin() || ( defined( 'WP_CLI' ) && WP_CLI ) ) {
+			require_once plugin_dir_path( __FILE__ ) . 'admin/class-basic-certificates-admin.php';
+            require_once plugin_dir_path( __FILE__ ) . 'admin/cmb2-fields/class-basic-pdf-field.php';
+		}
 	}
 }
