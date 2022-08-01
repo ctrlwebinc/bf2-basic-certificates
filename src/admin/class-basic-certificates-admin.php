@@ -235,14 +235,14 @@ class Basic_Certificates_Admin {
 	}
 
 	/**
-	 * Adds custom roles and capabilities requires by Badge Factor 2.
+	 * Adds custom roles and capabilities requires for certificate managers.
 	 *
 	 * @return void
 	 */
 	public static function add_custom_role_and_capabilities() {
 		$plugin_data = get_plugin_data( BF2_BASIC_CERTIFICATES_FILE );
 		
-		$approver = add_role(
+		$certificate_manager = add_role(
 			'certificate-manager',
 			__( 'Certificate manager', $plugin_data['TextDomain'] ),
 			array(
