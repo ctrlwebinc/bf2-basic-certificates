@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Badge Factor 2 - Certificates Addon\n"
 "POT-Creation-Date: 2021-04-09 10:20-0400\n"
-"PO-Revision-Date: 2022-07-29 16:33+0300\n"
+"PO-Revision-Date: 2022-08-01 21:57+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr_CA\n"
@@ -178,6 +178,10 @@ msgstr "Ajoute les Certificats à Badge Factor 2."
 #. Description of the plugin/theme
 msgid "Download the certificate"
 msgstr "Télécharger l'attestation de formation"
+
+#. src/admin/class-basic-certificates.php
+msgid "Certificate manager"
+msgstr "Gestionnaire de certificats"
 
 #. Author of the plugin/theme
 msgid "ctrlweb"
