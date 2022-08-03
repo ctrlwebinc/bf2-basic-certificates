@@ -26,10 +26,12 @@
 namespace BadgeFactor2;
 
 use BadgeFactor2\Controllers\Basic_Certificate_Controller;
+use BadgeFactor2\Helpers\BasicCerficateHelper;
 use BadgeFactor2\Helpers\BuddyPress;
 use BadgeFactor2\Models\BadgeClass;
 use BadgeFactor2\Models\Issuer;
 use setasign\Fpdi\Tcpdf\Fpdi;
+use BadgeFactor2\Post_Types\BadgePage;
 
 class Basic_Certificates_Public {
 
@@ -47,6 +49,14 @@ class Basic_Certificates_Public {
 		add_filter( 'template_include', array( Basic_Certificate_Controller::class, 'single' ) );
 
 		add_action( 'bf2_assertion_links', array( self::class, 'certificate_link' ) );
+		
+		// send email
+		add_action( 'wp_footer', array( self::class, 'send_certificate_wrapper' ) );
+		add_action( 'wp_enqueue_scripts', array( self::class, 'add_basic_certificate_scripts' ) );
+		add_action( 'wp_ajax_send_basic_certificate_email', array( self::class, 'send_basic_certificate_email' ) );
+		add_action( 'wp_ajax_nopriv_send_basic_certificate_email', array( self::class, 'send_basic_certificate_email' ) );
+		add_filter( 'wp_mail_from', array( self::class, 'new_mail_from' ), 99 );
+		add_filter('wp_mail_from_name', array( self::class, 'new_mail_from_name' ), 99 );
 	}
 
 
@@ -87,16 +97,23 @@ class Basic_Certificates_Public {
 
 	/**
 	 * Generate certificate.
+	 * 
+	 * @param \BadgeFactor2\Models\Assertion $assertion;
+	 * @param bool $save save to disk
+	 * 
+	 * @return mixed void|string 
 	 */
-	public static function generate( $assertion ) {
+	public static function generate( $assertion, $save = false ) {
 
 		$plugin_data = get_plugin_data( BF2_BASIC_CERTIFICATES_FILE );
 		$settings    = get_option( 'bf2_basic_certificates_settings' );
 
 		$template_file = get_attached_file( $settings['bf2_certificate_template_id'] );
+		$storage_root = WP_CONTENT_DIR . '/attachments/';
 
 		if ( $template_file ) {
 			$badge          = BadgeClass::get( $assertion->badgeclass );
+			$badgepage      = BadgePage::get_by_badgeclass_id( $assertion->badgeclass );
 			$issuer         = Issuer::get( $badge->issuer );
 			$recipient      = get_user_by( 'email', $assertion->recipient->plaintextIdentity );
 			$portfolio_link = bp_core_get_user_domain( $recipient->ID );
@@ -146,9 +163,19 @@ class Basic_Certificates_Public {
 					}
 				}
 			}
-			status_header( 200 );
-			$pdf->Output();
-			die;
+
+			if ( $save ) {
+				error_log( 'saving pdf file...' );
+				$filename = BasicCerficateHelper::generate_filename( $recipient, $badgepage );
+				$filename = $storage_root . $filename;
+				$pdf->Output($filename,'F');
+
+				return $filename;
+			} else {
+				status_header( 200 );
+				$pdf->Output();
+				die;
+			}
 		} else {
 			echo 'BadgeFactor 2 settings missing!';
 		}
@@ -250,5 +277,125 @@ class Basic_Certificates_Public {
 			true, 
 			0
 		);
+	}
+
+	public static function send_certificate_wrapper() {
+		?>
+		<div class="send_email_popup_overlay">
+			<div class="send_email_popup_wrap">
+				<div class="send_email_top_bar">
+					<i class="fa fa-window-close close_send_email" aria-hidden="true"></i>
+				</div>
+				<div class="send_email_popup_content">
+					<div class="send_email_popup_action_message"></div>
+					<p>Send this certificate to someone by email</p>
+					<form id="send_email_form" action="" method="post">
+						<input type="hidden" id="badge_page" value="<?php echo get_query_var( 'badge' ) ?>" />
+						<input type="text" required placeholder="Send to email address" id="send_to_email_address" />
+						<?php wp_nonce_field('send-basic-certificate', 'send-basic-certificate-nonce');?>
+						<p><button type="submit" id="send_email_btn_confirm">Send</button></p>
+					</form>
+				</div>
+			</div>
+		</div>
+		<?php
+	}
+
+	/**
+	 * Theme scripts
+	 */
+
+	public static function add_basic_certificate_scripts() {
+
+		wp_enqueue_style( 'basic-certificate-style', BF2_BASIC_CERTIFICATES_BASEURL . 'assets/css/basic-certificate.css', array(), '1.0.0' );
+		wp_enqueue_script( 'basic-certificate-js', BF2_BASIC_CERTIFICATES_BASEURL . 'assets/js/public.js', array('jquery'), '1.0.0' );
+	}
+
+	/**
+	 * Ajax hook register user
+	 */
+	public static function send_basic_certificate_email() {
+		$return = array(
+			'success'  => false,
+			'errors'   => array(),
+		);
+		$send = false;
+
+		$current_user = wp_get_current_user();
+
+		if ( $current_user->ID == 0 ) {
+			header( 'Content-Type: application/json' );
+			echo json_encode( array( 
+				'success' => false, 
+				'errors' => ['You must be logged in to send this email']
+				) );
+			exit;
+		}
+
+		if ( ! wp_verify_nonce( $_REQUEST['nonce'], 'send-basic-certificate' ) ) {
+			header( 'Content-Type: application/json' );
+			echo json_encode( array( 'success' => false ) );
+			exit;
+		}
+		$email = $_REQUEST['to_email'] ?? null;
+		$bage_page_slug = $_REQUEST['badge_page'] ?? '';
+		
+		if ( empty( $email ) || ! filter_var($email, FILTER_VALIDATE_EMAIL ) ) {
+			$return['errors']['email'] = __( 'Invalide email address.', 'oshin' );
+		}
+
+		// Generates certifate pdf file
+		$filename = BasicCerficateHelper::generate_and_save_certificate( $bage_page_slug );
+		
+		$from_email = $current_user->user_email;
+
+		if ( empty( $return['errors'] ) ) {
+			$to = $email;
+			$subject = 'Look at my certificate!';
+			$message = 'This is the email content';
+			$headers = array ( 'Content-Type: text/html; charset=UTF-8' );
+			$attachments = array( $filename );
+			$send = wp_mail( $to, $subject, $message, $headers, $attachments );
+		}
+		$return['success'] = $send;
+		if ( !$send ) {
+			$return['errors']['system'] = 'There was a problem sending the email';
+		}
+
+		header( 'Content-Type: application/json' );
+		echo json_encode( $return );
+		die;
+	}
+
+	/**
+	 * Sets From email for wp_mail headers
+	 */
+	public static function new_mail_from() {
+		$current_user = wp_get_current_user();
+
+		$from_email = get_bloginfo( 'admin_email' );
+
+		if ( $current_user->ID > 0 ) {
+			$from_email = $current_user->user_email;
+		}
+
+		return $from_email;
+	}
+
+	/**
+	 * Sets From name for wp_mail headers
+	 */
+	public static function new_mail_from_name() {
+		$current_user = wp_get_current_user();
+
+		$from_name = get_bloginfo( 'blogname' );
+
+		if ( $current_user->ID > 0 ) {
+			$from_name = $current_user->first_name . ' ' . $current_user->last_name;
+			$from_name = ( $from_name != '' ) ? $from_name : $current_user->user_nicename;
+			$from_name = ( $from_name != '' ) ? $from_name : get_bloginfo( 'blogname' );
+		}
+
+		return $from_name;
 	}
 }

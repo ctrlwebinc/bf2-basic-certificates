@@ -95,6 +95,7 @@ class BF2_Basic_Certificates {
 		require_once plugin_dir_path( __FILE__ ) . '../vendor/autoload.php';
 		require_once plugin_dir_path( __FILE__ ) . 'controllers/class-basic-certificate-controller.php';
 		require_once plugin_dir_path( __FILE__ ) . 'public/class-basic-certificates-public.php';
+		require_once plugin_dir_path( __FILE__ ) . 'helpers/class-basic-certificates-helper.php';
 		
 		// Admin / CLI classes.
 		if ( is_admin() || ( defined( 'WP_CLI' ) && WP_CLI ) ) {

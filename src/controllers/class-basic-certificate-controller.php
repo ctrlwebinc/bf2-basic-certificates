@@ -28,7 +28,7 @@ use BadgeFactor2\Basic_Certificates_Public;
 use BadgeFactor2\Models\Assertion;
 use BadgeFactor2\Page_Controller;
 use BadgeFactor2\Post_Types\BadgePage;
-use BadgeFactor2\Post_Types\Course;
+
 
 /**
  * Certificate Controller Class.
@@ -52,7 +52,6 @@ class Basic_Certificate_Controller extends Page_Controller {
 	public static function single( $default_template = null ) {
 		if ( get_query_var( 'member' ) && get_query_var( 'badge' ) && get_query_var( 'certificate' ) ) {
 			$user       = get_user_by( 'slug', get_query_var( 'member' ) );
-			// $course     = Course::get_by_badge_slug( get_query_var( 'badge' ) );
 			$assertions = Assertion::all_for_user( $user );
 
 			foreach ( $assertions as $a ) {
