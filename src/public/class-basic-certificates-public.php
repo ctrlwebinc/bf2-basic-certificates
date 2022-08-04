@@ -162,7 +162,6 @@ class Basic_Certificates_Public {
 				
 				if ( ! file_exists( $filename ) ) {
 					$pdf->Output($filename,'F');
-				} else {
 				}
 				
 				return $filename;
