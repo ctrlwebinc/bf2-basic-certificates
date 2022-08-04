@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Badge Factor 2 - Certificates Addon\n"
 "POT-Creation-Date: 2021-04-09 10:20-0400\n"
-"PO-Revision-Date: 2022-08-01 21:57+0300\n"
+"PO-Revision-Date: 2022-08-04 23:34+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr_CA\n"
@@ -190,3 +190,7 @@ msgstr "ctrlweb"
 #. Author URI of the plugin/theme
 msgid "https://badgefactor2.com/"
 msgstr "https://badgefactor2.com/"
+
+#. theme
+msgid "Send this certificate by e-mail"
+msgstr "Enovyer ce certificat par courriel"
