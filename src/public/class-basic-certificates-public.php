@@ -273,37 +273,4 @@ class Basic_Certificates_Public {
 			0
 		);
 	}
-
-	
-	/**
-	 * Sets From email for wp_mail headers
-	 */
-	public static function new_mail_from() {
-		$current_user = wp_get_current_user();
-
-		$from_email = get_bloginfo( 'admin_email' );
-
-		if ( $current_user->ID > 0 ) {
-			$from_email = $current_user->user_email;
-		}
-
-		return $from_email;
-	}
-
-	/**
-	 * Sets From name for wp_mail headers
-	 */
-	public static function new_mail_from_name() {
-		$current_user = wp_get_current_user();
-
-		$from_name = get_bloginfo( 'blogname' );
-
-		if ( $current_user->ID > 0 ) {
-			$from_name = $current_user->first_name . ' ' . $current_user->last_name;
-			$from_name = ( $from_name != '' ) ? $from_name : $current_user->user_nicename;
-			$from_name = ( $from_name != '' ) ? $from_name : get_bloginfo( 'blogname' );
-		}
-
-		return $from_name;
-	}
 }
