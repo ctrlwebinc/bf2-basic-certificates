@@ -165,11 +165,14 @@ class Basic_Certificates_Public {
 			}
 
 			if ( $save ) {
-				error_log( 'saving pdf file...' );
 				$filename = BasicCerficateHelper::generate_filename( $recipient, $badgepage );
 				$filename = $storage_root . $filename;
-				$pdf->Output($filename,'F');
-
+				
+				if ( ! file_exists( $filename ) ) {
+					$pdf->Output($filename,'F');
+				} else {
+				}
+				
 				return $filename;
 			} else {
 				status_header( 200 );

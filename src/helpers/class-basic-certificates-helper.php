@@ -41,8 +41,7 @@ class BasicCerficateHelper {
 	 * @return string
 	 */
 	public static function generate_and_save_certificate( $badge_page_slug ) {
-		error_log( 'generate_and_save_certificate' );	
-        $user       = wp_get_current_user();
+		$user       = wp_get_current_user();
         $assertions = Assertion::all_for_user( $user );
         $filename = '';
 
@@ -66,7 +65,6 @@ class BasicCerficateHelper {
 	 * @return string
 	 */
 	public static function generate_filename( $user, $badge_page ) {
-        error_log( 'generating filename...' );
-		return $user->user_login . '_' . $badge_page->post_name . '.pdf';
+        return $user->user_login . '_' . $badge_page->post_name . '.pdf';
 	}
 }
