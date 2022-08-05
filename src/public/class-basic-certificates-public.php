@@ -183,7 +183,7 @@ class Basic_Certificates_Public {
 
 		if ( $template_file ) {
 			if ( $current_user->ID > 0 && get_query_var( 'badge' ) != '' ) {
-				$plugin_data = get_plugin_data( BF2_CERTIFICATES_FILE );
+				$plugin_data = get_plugin_data( BF2_BASIC_CERTIFICATES_FILE );
 
 				$home = get_bloginfo( 'url' );
 				$certificate_slug = self::get_certificate_slug();
